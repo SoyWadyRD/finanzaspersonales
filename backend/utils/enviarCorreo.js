@@ -11,12 +11,18 @@ const enviarCorreo = async (to, subject, html) => {
     }
   });
 
-  await transporter.sendMail({
-    from: `"Finanzas Personales" <${process.env.SMTP_USER}>`,
-    to,
-    subject,
-    html
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Finanzas Personales" <${process.env.SMTP_USER}>`,
+      to,
+      subject,
+      html
+    });
+    console.log(`Correo de verificación enviado a ${to}`);
+  } catch (error) {
+    console.error(`Error al enviar el correo: ${error.message}`);
+    throw new Error("No se pudo enviar el correo de verificación.");
+  }
 };
 
 module.exports = enviarCorreo;
