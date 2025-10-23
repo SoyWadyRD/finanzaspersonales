@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirnameBase, "frontend"))); // Sirve todos lo
 // Sirve CSS y JS específicos si están en carpetas dentro de frontend
 app.use(express.static(path.join(__dirnameBase, 'frontend', 'css')));
 app.use(express.static(path.join(__dirnameBase, 'frontend', 'js')));
+app.use(express.static(path.join(__dirnameBase, 'frontend', 'img')));
 
 // Middlewares
 app.use(express.json());
