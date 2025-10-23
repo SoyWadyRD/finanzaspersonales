@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const dotenv = require("dotenv");
 const conectarDB = require("./config/db");
 const metasRoutes = require("./routes/metasRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -7,7 +8,7 @@ const finanzasRoutes = require("./routes/finanzasRoutes");
 
 const cors = require('cors'); // Asegúrate de importar cors
 
-// dotenv.config(); // Eliminar o comentar en producción
+dotenv.config();
 
 // Crear instancia de Express
 const app = express();

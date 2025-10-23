@@ -4,11 +4,13 @@ const enviarCorreo = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    secure: false, // Usa true si el puerto es 465
+    secure: process.env.SMTP_PORT == 465,  // Usa SSL en puerto 465
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
-    }
+    },
+    logger: true,   // Habilita logs para ver detalles
+    debug: true      // Habilita depuración para ver detalles de la conexión
   });
 
   try {
