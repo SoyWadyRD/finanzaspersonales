@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
   res.sendFile(filePath, (err) => {
     if (err) {
       res.status(500).send('Error al servir el archivo login.html');
-    } else {
     }
   });
 });
