@@ -23,3 +23,8 @@ const enviarCorreo = async (to, subject, html) => {
     throw new Error("No se pudo enviar el correo de verificación.");
   }
 };
+
+
+
+
+module.exports = enviarCorreo;
