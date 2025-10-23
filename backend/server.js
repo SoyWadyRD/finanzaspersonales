@@ -55,8 +55,7 @@ app.get('/login', (req, res) => {
 
 // Ruta raíz que redirige a login.html
 app.get('/', (req, res) => {
-  const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
-  res.sendFile(filePath);
+  res.redirect('/login.html');
 });
 
 // Iniciar servidor
