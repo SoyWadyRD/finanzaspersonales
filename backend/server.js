@@ -34,10 +34,8 @@ app.get('/', (req, res) => {
   const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
   res.sendFile(filePath, (err) => {
     if (err) {
-      console.log('Error al servir el archivo:', err);
       res.status(500).send('Error al servir el archivo login.html');
     } else {
-      console.log('Archivo login.html servido correctamente.');
     }
   });
 });
