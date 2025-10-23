@@ -6,12 +6,18 @@ const metasRoutes = require("./routes/metasRoutes");
 const authRoutes = require("./routes/authRoutes");
 const finanzasRoutes = require("./routes/finanzasRoutes");
 
+const cors = require('cors'); // Asegúrate de importar cors
+
 dotenv.config();
+
+// Crear instancia de Express
+const app = express();
+
+// Habilitar CORS
+app.use(cors()); // Usamos CORS antes de configurar las rutas y archivos estáticos
 
 // Conectar a la base de datos
 conectarDB();
-
-const app = express();
 
 // Directorio para servir archivos estáticos
 const __dirnameBase = path.resolve(); // Define __dirnameBase
