@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const conectarDB = require("./config/db");
 const metasRoutes = require("./routes/metasRoutes");
 const authRoutes = require("./routes/authRoutes");
-const finanzasRoutes = require("./routes/finanzasRoutes");  // Asegúrate de que la ruta sea correcta
+const finanzasRoutes = require("./routes/finanzasRoutes");
 
 dotenv.config();
 
@@ -49,6 +49,12 @@ app.get('/reset-password/:token', (req, res) => {
 
 // Ruta para login.html
 app.get('/login', (req, res) => {
+  const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
+  res.sendFile(filePath);
+});
+
+// Ruta raíz que redirige a login.html
+app.get('/', (req, res) => {
   const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
   res.sendFile(filePath);
 });
