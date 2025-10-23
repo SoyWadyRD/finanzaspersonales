@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 
-
 const enviarCorreo = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -22,12 +21,8 @@ const enviarCorreo = async (to, subject, html) => {
     console.log(`Correo de verificación enviado a ${to}`);
   } catch (error) {
     console.error(`Error al enviar el correo: ${error.message}`);
-    res.status(500).json({ mensaje: "Error al enviar el correo de verificación", error: error.message });
     throw new Error("No se pudo enviar el correo de verificación.");
   }
 };
-
-
-
 
 module.exports = enviarCorreo;

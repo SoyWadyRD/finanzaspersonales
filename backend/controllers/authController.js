@@ -7,13 +7,17 @@ const path = require("path");
 
 
   // Registro de usuario con envío de correo
+
+// Registro de usuario con envío de correo
 exports.registro = async (req, res) => {
   const { nombre, correo, contraseña } = req.body;
 
   try {
+    // Verificar si el usuario ya existe
     const usuarioExistente = await Usuario.findOne({ correo });
     if (usuarioExistente) return res.status(400).json({ mensaje: "El usuario ya existe" });
 
+    // Crear el nuevo usuario
     const usuario = await Usuario.create({ nombre, correo, contraseña });
 
     // Generar token de verificación
@@ -28,14 +32,19 @@ exports.registro = async (req, res) => {
     const html = `<h2>Hola ${nombre}</h2>
                   <p>Para activar tu cuenta haz clic en el link:</p>
                   <a href="${link}">Verificar cuenta</a>`;
-    await enviarCorreo(correo, "Verifica tu cuenta", html);
 
-    // Consola con mensaje y emoji
-    console.log(`📧 Nuevo usuario registrado: ${nombre} 🎉. Correo de verificación enviado. ✉️`);
+    // Enviar el correo de verificación
+    try {
+      await enviarCorreo(correo, "Verifica tu cuenta", html);  // Llamamos a la función sin 'res' aquí
+      console.log(`📧 Nuevo usuario registrado: ${nombre} 🎉. Correo de verificación enviado. ✉️`);
+      res.status(201).json({
+        mensaje: "Usuario registrado. Revisa tu correo para verificar la cuenta."
+      });
+    } catch (error) {
+      console.error("❌ Error al enviar el correo:", error.message);
+      res.status(500).json({ mensaje: "Error al enviar el correo de verificación", error: error.message });
+    }
 
-    res.status(201).json({
-      mensaje: "Usuario registrado. Revisa tu correo para verificar la cuenta."
-    });
   } catch (error) {
     console.error("❌ Error en el registro:", error.message);
     res.status(500).json({ mensaje: "Error en el registro", error: error.message });
