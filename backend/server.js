@@ -25,38 +25,21 @@ app.use(express.static(path.join(__dirnameBase, 'frontend', 'js')));
 app.use(express.json());
 
 // Rutas API
-app.use("/api/auth", authRoutes);  // Asegúrate de que las rutas de auth estén antes
+app.use("/api/auth", authRoutes);
 app.use("/api/finanzas", metasRoutes);
 app.use("/api/finanzas", finanzasRoutes);
 
-// Ruta para restablecer contraseña (debe estar antes de la ruta comodín)
-app.get('/reset-password/:token', (req, res) => {
-  const token = req.params.token;
-  console.log("Token recibido en la ruta /reset-password/:token:", token);
-  
-  if (!token) {
-    return res.status(400).send("Token no válido");
-  }
-
-  try {
-    const filePath = path.join(__dirnameBase, 'frontend', 'reset-password.html');
-    res.sendFile(filePath);
-  } catch (error) {
-    console.error("Error al cargar la página de restablecimiento:", error);
-    res.status(500).send("Error al cargar la página de restablecimiento.");
-  }
-});
-
-// Ruta para login.html
-app.get('/login', (req, res) => {
-  const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
-  res.sendFile(filePath);
-});
-
-// Ruta raíz que redirige a login.html
+// Ruta raíz que sirve login.html
 app.get('/', (req, res) => {
   const filePath = path.join(__dirnameBase, 'frontend', 'login.html');
-  res.sendFile(filePath);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.log('Error al servir el archivo:', err);
+      res.status(500).send('Error al servir el archivo login.html');
+    } else {
+      console.log('Archivo login.html servido correctamente.');
+    }
+  });
 });
 
 // Iniciar servidor
