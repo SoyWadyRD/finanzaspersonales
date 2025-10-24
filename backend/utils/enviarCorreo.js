@@ -13,7 +13,9 @@ const enviarCorreo = async (to, subject, html) => {
       pass: process.env.SMTP_PASS
     },
     logger: true,   // Habilita logs para ver detalles
-    debug: true      // Habilita depuración para ver detalles de la conexión
+    debug: true,    // Habilita depuración para ver detalles de la conexión
+    socketTimeout: 30000,  // Timeout para la conexión (30 segundos)
+    connectionTimeout: 30000, // Timeout para la conexión inicial (30 segundos)
   });
 
   console.log(`🛠️ Configuración del transporter:
